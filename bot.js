@@ -28,21 +28,24 @@ client.user.setGame(``,"")
   console.log('')
 });
 client.on('message', message => {
-  if(message.author.bot) return;
-  if(message.channel.type === 'dm') return;
-    if(message.content.toLowerCase().startsWith(prefix + "uptime")) {
-      let upTime = process.uptime();
-  
-      let days = Math.floor(upTime / 86400);
-      upTime %= 86400;
-  
-      let hrs = Math.floor(upTime / 3600);
-      upTime %= 3600;
-  
-      let min = Math.floor(upTime / 60);
-      let sec = Math.floor(upTime % 60);
-  
-      message.channel.send(`\`${days} days, ${hrs} hrs, ${min} min, ${sec} sec\``);
+    if (message.content.startsWith("-avatar")) {
+        if (message.author.bot) return
+        var mentionned = message.mentions.users.first();
+    var omar;
+      if(mentionned){
+          var omar = mentionned;
+      } else {
+          var omar = message.author;
+          
+      }
+        const embed = new Discord.RichEmbed()
+        .setColor("RANDOM")
+        .setAuthor('Avatar Link :')
+        .setTitle('Click Here')
+        .setURL(`${omar.avatarURL}`)
+        .setImage(`${omar.avatarURL}`)
+        .setFooter('name bot',client.user.avatarURL) 
+      message.channel.sendEmbed(embed);
     }
 });
 
